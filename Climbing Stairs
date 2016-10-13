@@ -1,0 +1,50 @@
+You are climbing a stair case. It takes n steps to reach to the top.
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?（n个台阶的楼梯，每次能够上1或2个台阶，有多少种不同到达顶部的走法？）
+
+1.个人分析
+当n=1时，res=1；n=2，res=2；n=3，res=3；n=4，res=5，由此可以得到递推公式，当n>2，f(n)=f(n-1)+f(n-2)，典型的递归问题。
+
+2.个人解法
+（1）递归
+	int climbStairs(int n) 
+	{
+		if(n < 1)
+			return 0;
+		if(n == 1)
+			return 1;
+		if(n == 2)
+			return 2;
+
+		return climbStairs(n-1) + climbStairs(n-2);
+	}
+结果显示超时，说明不能通过递归法的效率不符合要求。
+
+（2）递推
+	int climbStairs(int n)
+	{
+		if(n < 1)
+			return 0;
+		if(n == 1)
+			return 1;
+		if(n == 2)
+			return 2;
+		
+		vector<int> vec;
+		vec.push_back(1);
+		vec.push_back(2);
+
+		for (int i=2; i<n; ++i)
+		{
+			vec.push_back(vec[i-1] + vec[i-2]);
+		}
+
+		return vec[n-1];
+	}
+该解法是通过一个额外的数组来实现递推，结果显示通过。
+
+3.总结
+当递归解法无法通过时，说明运行时间太长，这时就需要其他的方法，一般可以用递推来替代递归。
+
+
+
+
